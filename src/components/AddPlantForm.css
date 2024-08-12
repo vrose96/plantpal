@@ -1,0 +1,93 @@
+/* AddPlantForm.css */
+
+@import url('https://fonts.googleapis.com/css2?family=Nunito:wght@300;400;600&display=swap');
+
+body {
+  background-color: #ffffff;
+  margin: 0;
+  font-family: 'Nunito', sans-serif;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+.add-plant-container {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  padding: 20px;
+  min-height: 100vh;
+}
+
+.plant-form-box {
+  background-color: #5B7553;
+  border-radius: 8px;
+  padding: 40px;
+  max-width: 500px;
+  width: 100%;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  color: #ffffff;
+}
+
+.plant-form-box h2 {
+  text-align: center;
+  font-size: 2em;
+  margin-bottom: 20px;
+}
+
+.form-group {
+  display: flex;
+  flex-direction: column;
+  margin-bottom: 15px;
+}
+
+.form-group label {
+  font-size: 1.1em;
+  margin-bottom: 5px;
+}
+
+.form-group input,
+.form-group textarea {
+  width: 100%;
+  padding: 10px;
+  border-radius: 5px;
+  font-size: 1em;
+  border: 1px solid #ddd;
+}
+
+button {
+  background-color: #D7E8BA;
+  color: #040403;
+  border: none;
+  border-radius: 5px;
+  padding: 10px 20px;
+  cursor: pointer;
+  font-size: 1em;
+  margin-top: 20px;
+}
+
+button:hover {
+  background-color: #B07156;
+}
+
+.confirmation-message {
+  margin-top: 20px;
+  color: #D7E8BA;
+  text-align: center;
+}
+
+.back-button {
+  background-color: #D7E8BA;
+  color: #040403;
+  border: none;
+  border-radius: 5px;
+  padding: 10px 20px;
+  cursor: pointer;
+  font-size: 1em;
+  margin-bottom: 20px;
+  align-self: flex-start; /* Align button to the start (left) */
+}
+
+.back-button:hover {
+  background-color: #B07156;
+}

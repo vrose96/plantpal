@@ -1,0 +1,58 @@
+/* PlantDetail.css */
+
+.plant-detail-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 20px;
+    min-height: 100vh;
+  }
+  
+  .plant-detail-box {
+    background-color: #5B7553; /* Set the box color to green */
+    border-radius: 8px;
+    padding: 40px;
+    max-width: 800px;
+    width: 100%;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    color: #ffffff;
+  }
+  
+  .plant-detail-title {
+    text-align: center;
+    font-size: 2em;
+    margin-bottom: 20px;
+  }
+  
+  .plant-detail-image {
+    display: block;
+    margin: 0 auto 20px;
+    max-width: 100%;
+    border-radius: 8px;
+  }
+  
+  .plant-detail-box p {
+    margin: 10px 0;
+    font-size: 1.1em;
+    line-height: 1.5;
+  }
+  
+  .plant-detail-box p strong {
+    color: #D7E8BA;
+  }
+  
+  .back-button {
+    background-color: #D7E8BA;
+    color: #040403;
+    border: none;
+    border-radius: 5px;
+    padding: 10px 20px;
+    cursor: pointer;
+    font-size: 1em;
+    margin-bottom: 20px;
+  }
+  
+  .back-button:hover {
+    background-color: #B07156;
+  }
+  
