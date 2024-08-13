@@ -28,10 +28,10 @@ export const addPlantToSupabase = async (plantData) => {
 // Trefle API function to fetch all plants
 export const getPlants = async () => {
   try {
-    const response = await axios.get(`${PROXY_URL}${encodeURIComponent(`${API_URL}?token=${API_KEY}`)}`);
-    return response.data;
+      const response = await axios.get(`${PROXY_URL}${encodeURIComponent(`${API_URL}?token=${API_KEY}`)}`);
+      return response.data; // Ensure this structure matches what you're accessing in PlantList.jsx
   } catch (error) {
-    throw new Error('Error fetching plant list');
+      throw new Error('Error fetching plant list');
   }
 };
 

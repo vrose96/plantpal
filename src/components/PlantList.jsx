@@ -1,13 +1,14 @@
-// src/components/PlantList.jsx
 import React, { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import { getPlants } from '../services/plantService';
 import './PlantList.css';
-import logo from '../assets/plantpal_logo.png'; // Assuming the logo is in the assets folder
+import logo from '../assets/plantpal_logo.png';
 
 const PlantList = () => {
   const [plants, setPlants] = useState([]);
   const [favorites, setFavorites] = useState([]);
+  const [searchQuery, setSearchQuery] = useState(''); 
+  const [searchResults, setSearchResults] = useState([]); 
   const [error, setError] = useState(null);
 
   useEffect(() => {
@@ -33,6 +34,18 @@ const PlantList = () => {
     }
   };
 
+  const handleSearch = async (e) => {
+    e.preventDefault();
+    try {
+        const response = await fetch(`http://localhost:5001/api/search?query=${searchQuery}`);
+        const data = await response.json();
+        console.log('Search Results:', data); // Log the data
+        setSearchResults(data.data); // Ensure this matches the data structure
+    } catch (err) {
+        setError('Error fetching search results');
+    }
+};
+
   if (error) return <div className="error-message">Error: {error}</div>;
 
   return (
@@ -49,23 +62,50 @@ const PlantList = () => {
           </div>
         </div>
       </header>
+      <form onSubmit={handleSearch}> {/* Search Form */}
+        <input 
+          type="text" 
+          placeholder="Search for a plant..." 
+          value={searchQuery}
+          onChange={(e) => setSearchQuery(e.target.value)}
+        />
+        <button type="submit">Search</button>
+      </form>
       <div className="plant-list-container">
         <div className="plant-grid">
-          {plants.map(plant => (
-            <div key={plant.id} className="plant-item">
-              <img src={plant.image_url} alt={plant.common_name} />
-              <p>{plant.common_name}</p>
-              <Link to={`/plant/${plant.id}`}>
-                <button>View Details</button>
-              </Link>
-              <button
-                className="favorite-button"
-                onClick={() => toggleFavorite(plant)}
-              >
-                {favorites.some(fav => fav.id === plant.id) ? 'Unfavorite' : 'Favorite'}
-              </button>
-            </div>
-          ))}
+          {Array.isArray(searchResults) && searchResults.length > 0 ? (
+            searchResults.map(plant => (
+              <div key={plant.id} className="plant-item">
+                <img src={plant.image_url} alt={plant.common_name} />
+                <p>{plant.common_name}</p>
+                <Link to={`/plant/${plant.id}`}>
+                  <button>View Details</button>
+                </Link>
+                <button
+                  className="favorite-button"
+                  onClick={() => toggleFavorite(plant)}
+                >
+                  {favorites.some(fav => fav.id === plant.id) ? 'Unfavorite' : 'Favorite'}
+                </button>
+              </div>
+            ))
+          ) : (
+            plants.map(plant => (
+              <div key={plant.id} className="plant-item">
+                <img src={plant.image_url} alt={plant.common_name} />
+                <p>{plant.common_name}</p>
+                <Link to={`/plant/${plant.id}`}>
+                  <button>View Details</button>
+                </Link>
+                <button
+                  className="favorite-button"
+                  onClick={() => toggleFavorite(plant)}
+                >
+                  {favorites.some(fav => fav.id === plant.id) ? 'Unfavorite' : 'Favorite'}
+                </button>
+              </div>
+            ))
+          )}
         </div>
       </div>
     </div>
