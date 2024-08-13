@@ -1,11 +1,13 @@
+// src/components/PlantList.jsx
 import React, { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import { getPlants } from '../services/plantService';
 import './PlantList.css';
-import logo from '../assets/plantpal_logo.png';
+import logo from '../assets/plantpal_logo.png'; // Assuming the logo is in the assets folder
 
 const PlantList = () => {
   const [plants, setPlants] = useState([]);
+  const [favorites, setFavorites] = useState([]);
   const [error, setError] = useState(null);
 
   useEffect(() => {
@@ -13,6 +15,23 @@ const PlantList = () => {
       .then(data => setPlants(data.data))
       .catch(err => setError(err.message));
   }, []);
+
+  useEffect(() => {
+    const storedFavorites = JSON.parse(localStorage.getItem('favorites')) || [];
+    setFavorites(storedFavorites);
+  }, []);
+
+  useEffect(() => {
+    localStorage.setItem('favorites', JSON.stringify(favorites));
+  }, [favorites]);
+
+  const toggleFavorite = (plant) => {
+    if (favorites.some(fav => fav.id === plant.id)) {
+      setFavorites(favorites.filter(fav => fav.id !== plant.id));
+    } else {
+      setFavorites([...favorites, plant]);
+    }
+  };
 
   if (error) return <div className="error-message">Error: {error}</div>;
 
@@ -25,25 +44,28 @@ const PlantList = () => {
           </div>
           <h1 className="header-title">Your Plant Best Friend</h1>
           <div className="button-container">
-            <Link to="/add-plant" className="add-plant-button">
-              Add New Plant
-            </Link>
+            <Link to="/add-plant" className="add-plant-button">Add New Plant</Link>
+            <Link to="/favorites" className="favorite-plant-button">View Favorites</Link>
           </div>
         </div>
       </header>
       <div className="plant-list-container">
-        <div className="plant-list-box">
-          <div className="plant-grid">
-            {plants.map(plant => (
-              <div key={plant.id} className="plant-item">
-                <img src={plant.image_url} alt={plant.common_name} />
-                <p>{plant.common_name}</p>
-                <Link to={`/plant/${plant.id}`}>
-                  <button>View Details</button>
-                </Link>
-              </div>
-            ))}
-          </div>
+        <div className="plant-grid">
+          {plants.map(plant => (
+            <div key={plant.id} className="plant-item">
+              <img src={plant.image_url} alt={plant.common_name} />
+              <p>{plant.common_name}</p>
+              <Link to={`/plant/${plant.id}`}>
+                <button>View Details</button>
+              </Link>
+              <button
+                className="favorite-button"
+                onClick={() => toggleFavorite(plant)}
+              >
+                {favorites.some(fav => fav.id === plant.id) ? 'Unfavorite' : 'Favorite'}
+              </button>
+            </div>
+          ))}
         </div>
       </div>
     </div>

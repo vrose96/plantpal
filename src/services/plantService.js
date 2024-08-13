@@ -1,3 +1,4 @@
+
 import axios from 'axios';
 import { createClient } from '@supabase/supabase-js';
 
@@ -7,8 +8,8 @@ const API_KEY = 'n1G1WCpmpGinxgwa_YEuq4Mtr-adpG9m0pQ22oJM5Zg';
 const PROXY_URL = 'https://api.allorigins.win/raw?url=';
 
 // Supabase constants
-const supabaseUrl = 'https://vhkyoconiayqwtdxickg.supabase.co';
-const supabaseKey = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InZoa3lvY29uaWF5cXd0ZHhpY2tnIiwicm9sZSI6ImFub24iLCJpYXQiOjE3MjI5OTQzNzUsImV4cCI6MjAzODU3MDM3NX0.erVdi1gxUEiVDqz1ykkR8KWZOzUQQmLOglnNCn12mwo';
+const supabaseUrl = 'https://kkfspebnqikafslyjvid.supabase.co';
+const supabaseKey = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImtrZnNwZWJucWlrYWZzbHlqdmlkIiwicm9sZSI6ImFub24iLCJpYXQiOjE3MjM1MTM3MTEsImV4cCI6MjAzOTA4OTcxMX0.m-1TzcZHITvYgHeTfkhc3R7c7cb4e4ZM99eFDLtuAQU';
 const supabase = createClient(supabaseUrl, supabaseKey);
 
 // Supabase function to add a plant to the database

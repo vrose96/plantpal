@@ -1,51 +1,46 @@
-import React, { useEffect, useState } from 'react';
-import { getFavoritePlants, getPlantDetails } from '../services/plantService';
+// src/components/FavoritePlants.jsx
+import React, { useState, useEffect } from 'react';
+import { Link } from 'react-router-dom';
+import './PlantList.css';
 
-const FavoritePlants = ({ user_id }) => {
-  const [favoritePlants, setFavoritePlants] = useState([]);
-  const [loading, setLoading] = useState(true);
-  const [error, setError] = useState(null);
+const FavoritePlants = () => {
+  const [favorites, setFavorites] = useState([]);
 
   useEffect(() => {
-    const fetchFavorites = async () => {
-      try {
-        const favoriteEntries = await getFavoritePlants(user_id);
-        const plantDetails = await Promise.all(
-          favoriteEntries.map(async (fav) => {
-            const plant = await getPlantDetails(fav.plant_id);
-            return plant;
-          })
-        );
-        setFavoritePlants(plantDetails);
-      } catch (error) {
-        setError(error.message);
-      } finally {
-        setLoading(false);
-      }
-    };
+    const storedFavorites = JSON.parse(localStorage.getItem('favorites')) || [];
+    setFavorites(storedFavorites);
+  }, []);
 
-    fetchFavorites();
-  }, [user_id]);
-
-  if (loading) return <p>Loading favorite plants...</p>;
-  if (error) return <p>Error loading favorite plants: {error}</p>;
+  const removeFavorite = (plantId) => {
+    const updatedFavorites = favorites.filter(fav => fav.id !== plantId);
+    setFavorites(updatedFavorites);
+    localStorage.setItem('favorites', JSON.stringify(updatedFavorites));
+  };
 
   return (
-    <div className="favorite-plants-container">
-      <h2>My Favorite Plants</h2>
-      {favoritePlants.length === 0 ? (
-        <p>You have no favorite plants yet.</p>
-      ) : (
+    <div className="page-container">
+      <header className="header">
+        <div className="header-content">
+          <h1 className="header-title">Your Favorite Plants</h1>
+          <div className="button-container">
+            <Link to="/" className="add-plant-button">Back to Plant List</Link>
+          </div>
+        </div>
+      </header>
+      <div className="plant-list-container">
         <div className="plant-grid">
-          {favoritePlants.map(plant => (
+          {favorites.map(plant => (
             <div key={plant.id} className="plant-item">
               <img src={plant.image_url} alt={plant.common_name} />
               <p>{plant.common_name}</p>
-              <p>{plant.scientific_name}</p>
+              <button onClick={() => removeFavorite(plant.id)}>Remove from Favorites</button>
+              <Link to={`/plant/${plant.id}`}>
+                <button>View Details</button>
+              </Link>
             </div>
           ))}
         </div>
-      )}
+      </div>
     </div>
   );
 };
