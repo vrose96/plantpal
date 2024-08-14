@@ -125,3 +125,34 @@
   text-align: center;
   margin-bottom: 20px;
 }
+
+.search-form {
+  display: flex;
+  align-items: center;
+  margin-bottom: 20px; /* Adds space below the form */
+}
+
+.search-input {
+  width: 300px; /* Set a fixed width for the input */
+  padding: 10px; /* Adds padding to make the input larger */
+  font-size: 1.2em; /* Increases the font size */
+  border-radius: 5px;
+  border: 1px solid #ddd;
+  margin-right: 10px; /* Adds space between input and button */
+  height: 40px; /* Ensures the input is the same height as the button */
+}
+
+.search-button {
+  padding: 10px 20px; /* Adjusts padding for the button */
+  font-size: 1.2em; /* Increases the font size */
+  background-color: #4A7C59; /* Button background color */
+  color: #ffffff; /* Button text color */
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  height: 40px; /* Ensures the button is the same height as the input */
+}
+
+.search-button:hover {
+  background-color: #3A5C43; /* Button hover color */
+}

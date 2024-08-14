@@ -13,9 +13,9 @@ const PlantList = () => {
 
   useEffect(() => {
     getPlants()
-      .then(data => setPlants(data.data))
+      .then(data => setPlants(data.data)) // Ensure this works with your combined data structure
       .catch(err => setError(err.message));
-  }, []);
+}, []);
 
   useEffect(() => {
     const storedFavorites = JSON.parse(localStorage.getItem('favorites')) || [];
@@ -62,14 +62,15 @@ const PlantList = () => {
           </div>
         </div>
       </header>
-      <form onSubmit={handleSearch}> {/* Search Form */}
+      <form onSubmit={handleSearch} className="search-form"> {/* Updated search form */}
         <input 
           type="text" 
           placeholder="Search for a plant..." 
           value={searchQuery}
           onChange={(e) => setSearchQuery(e.target.value)}
+          className="search-input" // Added class for styling
         />
-        <button type="submit">Search</button>
+        <button type="submit" className="search-button">Search</button> {/* Added class for styling */}
       </form>
       <div className="plant-list-container">
         <div className="plant-grid">
